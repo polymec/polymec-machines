@@ -1,3 +1,20 @@
+# ------------------------------------
+# NERSC Cori (last updated 6/8/2016)
+# ------------------------------------
+#
+# Load the following modules
+#   cmake
+#   cray-hdf5-parallel
+#   silo
+# 
+# and then type
+# 
+# make config mpi=1 prefix=/prefix/for/polymec 
+# 
+# followed by
+# 
+# make mpi=1 install
+#
 #ndk : I had to "module load cray-hdf5 silo" 
 #ndk  make config debug=1 mpi=1 prefix=$SCRATCH/polymec
 # (Intel's compilers don't do C11.).

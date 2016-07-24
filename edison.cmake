@@ -1,3 +1,20 @@
+# -------------------------------------
+# NERSC Edison (last updated 6/8/2016)
+# -------------------------------------
+# 
+# Make sure the following modules are loaded:
+#   cmake 
+#   silo
+# 
+# and then type
+# 
+# make config mpi=1 prefix=/prefix/for/polymec
+# 
+# adding any additional desired flags. Then:
+# 
+# make mpi=1 install
+# -------------------------------------
+
 # Edison likes Intel's compilers
 # (but Intel's compilers don't do C11.).
 set(CMAKE_C_COMPILER cc)
