@@ -13,7 +13,12 @@
 # adding any additional desired flags. Then:
 # 
 # make mpi=1 machine=edison install
-# -------------------------------------
+#
+# To run the unit tests, change to build/edison* and type
+#
+# salloc [options] ctest
+#
+# where you can specify options for your account, etc.
 
 # Edison likes Intel's compilers
 # (but Intel's compilers don't do C11.).
@@ -29,9 +34,6 @@ set(Z_LIBRARY /usr/lib64/libz.a)
 set(Z_INCLUDE_DIR /usr/include)
 get_filename_component(Z_LIBRARY_DIR ${Z_LIBRARY} DIRECTORY)
 
-# Note that we use the hdf5 module and not cray-hdf5, since the silo 
-# module (below) is linked against hdf5 and not cray-hdf5.
-# FIXME: Use hdf5-parallel for parallel builds.
 # Set up HDF5.
 if (HAVE_MPI EQUAL 0)
   message(FATAL_ERROR "Serial configurations are not supported on NERSC Edison. Please configure with mpi=1.")
@@ -48,15 +50,5 @@ else()
   set(HDF5_INCLUDE_DIR ${HDF5_LOC}/include)
 endif()
 
-#set(SILO_LOC $ENV{SILO_DIR})
-#if (NOT SILO_LOC)
-#  message(FATAL_ERROR "SILO_DIR not found. Please load the silo module.")
-#endif()
-#
-#if (EXISTS ${SILO_LOC}/lib/libsiloh5.a)
-#  include_directories(${SILO_LOC}/include)
-#  link_directories(${SILO_LOC}/lib)
-#  list(APPEND EXTRA_LINK_DIRECTORIES ${SILO_LOC}/lib)
-#  set(SILO_LIBRARY ${SILO_LOC}/lib/libsiloh5.a)
-#  set(SILO_LIBRARIES siloh5)
-#endif()
+set(BATCH_SYSTEM "slurm")
+set(PROCS_PER_NODE 32)

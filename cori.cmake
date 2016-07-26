@@ -5,18 +5,21 @@
 # Load the following modules
 #   cmake
 #   cray-hdf5-parallel
-#   silo
 # 
 # and then type
 # 
-# make config mpi=1 prefix=/prefix/for/polymec 
+# make config mpi=1 machine=cori prefix=/prefix/for/polymec 
 # 
 # followed by
 # 
-# make mpi=1 install
+# make mpi=1 machine=cori install 
 #
-#ndk : I had to "module load cray-hdf5 silo" 
-#ndk  make config debug=1 mpi=1 prefix=$SCRATCH/polymec
+# To run the unit tests, change to build/edison* and type
+#
+# salloc [options] ctest
+#
+# where you can specify options for your account, etc.
+
 # (Intel's compilers don't do C11.).
 set(CMAKE_C_COMPILER cc)
 set(CMAKE_CXX_COMPILER CC)
@@ -30,9 +33,6 @@ set(Z_LIBRARY /usr/lib64/libz.a)
 set(Z_INCLUDE_DIR /usr/include)
 get_filename_component(Z_LIBRARY_DIR ${Z_LIBRARY} DIRECTORY)
 
-# Note that we use the hdf5 module and not cray-hdf5, since the silo 
-# module (below) is linked against hdf5 and not cray-hdf5.
-# FIXME: Use hdf5-parallel for parallel builds.
 # Set up HDF5.
 if (HAVE_MPI EQUAL 0)
   message(FATAL_ERROR "Serial configurations are not supported on NERSC Cori. Please configure with mpi=1.")
@@ -49,16 +49,5 @@ else()
   set(HDF5_INCLUDE_DIR ${HDF5_LOC}/include)
 endif()
 
-set(SILO_LOC $ENV{SILO_DIR})
-if (NOT SILO_LOC)
-  message(FATAL_ERROR "SILO_DIR not found. Please load the silo module.")
-endif()
-
-if (EXISTS ${SILO_LOC}/lib/libsiloh5.a)
-  include_directories(${SILO_LOC}/include)
-  link_directories(${SILO_LOC}/lib)
-  list(APPEND EXTRA_LINK_DIRECTORIES ${SILO_LOC}/lib)
-  set(SILO_LIBRARY ${SILO_LOC}/lib/libsiloh5.a)
-  set(SILO_LIBRARIES siloh5)
-endif()
-
+set(BATCH_SYSTEM "slurm")
+set(PROCS_PER_NODE 32)
