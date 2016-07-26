@@ -1,18 +1,18 @@
-# -------------------------------------
-# NERSC Edison (last updated 6/8/2016)
-# -------------------------------------
+# ------------
+# NERSC Edison
+# ------------
 # 
 # Make sure the following modules are loaded:
 #   cmake 
-#   silo
+#   cray-hdf5-parallel
 # 
 # and then type
 # 
-# make config mpi=1 prefix=/prefix/for/polymec
+# make config mpi=1 machine=edison prefix=/prefix/for/polymec
 # 
 # adding any additional desired flags. Then:
 # 
-# make mpi=1 install
+# make mpi=1 machine=edison install
 # -------------------------------------
 
 # Edison likes Intel's compilers
@@ -48,15 +48,15 @@ else()
   set(HDF5_INCLUDE_DIR ${HDF5_LOC}/include)
 endif()
 
-set(SILO_LOC $ENV{SILO_DIR})
-if (NOT SILO_LOC)
-  message(FATAL_ERROR "SILO_DIR not found. Please load the silo module.")
-endif()
-
-if (EXISTS ${SILO_LOC}/lib/libsiloh5.a)
-  include_directories(${SILO_LOC}/include)
-  link_directories(${SILO_LOC}/lib)
-  list(APPEND EXTRA_LINK_DIRECTORIES ${SILO_LOC}/lib)
-  set(SILO_LIBRARY ${SILO_LOC}/lib/libsiloh5.a)
-  set(SILO_LIBRARIES siloh5)
-endif()
+#set(SILO_LOC $ENV{SILO_DIR})
+#if (NOT SILO_LOC)
+#  message(FATAL_ERROR "SILO_DIR not found. Please load the silo module.")
+#endif()
+#
+#if (EXISTS ${SILO_LOC}/lib/libsiloh5.a)
+#  include_directories(${SILO_LOC}/include)
+#  link_directories(${SILO_LOC}/lib)
+#  list(APPEND EXTRA_LINK_DIRECTORIES ${SILO_LOC}/lib)
+#  set(SILO_LIBRARY ${SILO_LOC}/lib/libsiloh5.a)
+#  set(SILO_LIBRARIES siloh5)
+#endif()
