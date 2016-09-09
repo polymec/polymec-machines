@@ -5,6 +5,7 @@
 # Load the following modules
 #   cmake
 #   cray-hdf5-parallel
+#   intel/16.0.3.210.nersc
 # 
 # and then type
 # 
@@ -14,13 +15,12 @@
 # 
 # make mpi=1 machine=cori install 
 #
-# To run the unit tests, change to build/edison* and type
+# To run the unit tests, change to build/cori* and type
 #
 # salloc [options] ctest
 #
 # where you can specify options for your account, etc.
 
-# (Intel's compilers don't do C11.).
 set(CMAKE_C_COMPILER cc)
 set(CMAKE_CXX_COMPILER CC)
 set(CMAKE_Fortran_COMPILER ftn)

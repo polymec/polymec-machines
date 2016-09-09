@@ -5,6 +5,7 @@
 # Make sure the following modules are loaded:
 #   cmake 
 #   cray-hdf5-parallel
+#   intel/16.0.0.109
 # 
 # and then type
 # 
@@ -20,8 +21,6 @@
 #
 # where you can specify options for your account, etc.
 
-# Edison likes Intel's compilers
-# (but Intel's compilers don't do C11.).
 set(CMAKE_C_COMPILER cc)
 set(CMAKE_CXX_COMPILER CC)
 set(CMAKE_Fortran_COMPILER ftn)
